@@ -1,5 +1,6 @@
 package com.paul.camera;
 
+import com.paul.Vector;
 import java.awt.Color;
 
 public class ImagePlane {
@@ -10,7 +11,7 @@ public class ImagePlane {
   private final double[] vantagePoint;
   private final double distance;
 
-  private Color[][] imagePlane;
+  public Color[][] imagePlane;
 
   /*
   First, we replace our eyes with an image plane composed of pixels.
@@ -33,7 +34,9 @@ public class ImagePlane {
     this.vantagePoint = vantagePoint;
     this.distance = distance;
 
-    this.imagePlaneMidPoint = vantagePoint;
+    this.imagePlaneMidPoint = new double[3];
+    this.imagePlaneMidPoint[0] = this.vantagePoint[0];
+    this.imagePlaneMidPoint[1] = this.vantagePoint[1];
     this.imagePlaneMidPoint[2] = this.vantagePoint[2] + distance;
 
     this.imagePlane = new Color[imagePlanePixelWidth][imagePlanePixelHeight];
@@ -47,10 +50,6 @@ public class ImagePlane {
 
   public double[] getVantagePoint() {
     return vantagePoint;
-  }
-
-  public Color[][] getImagePlane() {
-    return this.imagePlane;
   }
 
   public int getImagePlanePixelWidth() {
@@ -97,13 +96,8 @@ public class ImagePlane {
 
   public Ray getRayFromPixel(int x, int y) {
     double[] pixelPos = this.getPixelPosition(x, y);
-    double distance = Math.sqrt(Math.pow(pixelPos[0] - vantagePoint[0], 2)
-        + Math.pow(pixelPos[1] - vantagePoint[1], 2)
-        + Math.pow(pixelPos[2] - vantagePoint[2], 2));
+    double distance = Vector.length(Vector.subtract(pixelPos, vantagePoint));
 
-    return new Ray(pixelPos,
-        new double[] {(pixelPos[0] - vantagePoint[0]) / distance,
-            (pixelPos[1] - vantagePoint[1]) / distance,
-            (pixelPos[2] - vantagePoint[2]) / distance});
+    return new Ray(pixelPos, Vector.normalize(Vector.subtract(pixelPos, vantagePoint)));
   }
 }

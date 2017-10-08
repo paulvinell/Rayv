@@ -25,14 +25,12 @@ public class Print {
 
       bw.write("P3");
       bw.newLine();
-      bw.write(imagePlane.getImagePlanePixelWidth() + " " + imagePlane.getImagePlanePixelHeight());
-      bw.newLine();
-      bw.write(255);
+      bw.write(imagePlane.getImagePlanePixelWidth() + " " + imagePlane.getImagePlanePixelHeight() + " 255");
       bw.newLine();
 
       for (int i = 0; i < imagePlane.getImagePlanePixelWidth(); i++) {
         for (int j = 0; j < imagePlane.getImagePlanePixelHeight(); j++) {
-          Color c = imagePlane.getImagePlane()[i][j];
+          Color c = imagePlane.imagePlane[i][j];
           bw.write(c.getRed() + " " + c.getBlue() + " " + c.getGreen());
           bw.newLine();
         }

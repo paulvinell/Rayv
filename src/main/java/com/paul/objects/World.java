@@ -1,7 +1,9 @@
 package com.paul.objects;
 
+import com.paul.Vector;
 import com.paul.camera.ImagePlane;
 import com.paul.camera.Ray;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +27,16 @@ public class World {
           double[][] collision = item.getCollisionPoints(ray);
 
           if (collision.length > 0) {
+            double[] lightRayDirection = Vector.normalize(Vector.subtract(lightSource.center, collision[0]));
+            Ray lightRay = new Ray(collision[0], lightRayDirection);
 
+            if (lightSource.getCollisionPoints(lightRay).length > 0) {
+              Color c = imagePlane.imagePlane[x][y];
+
+              imagePlane.imagePlane[x][y] = new Color((int) (item.material.getColor().getRed() * item.material.getReflect()),
+                  (int) (item.material.getColor().getBlue() * item.material.getReflect()),
+                  (int) (item.material.getColor().getGreen() * item.material.getReflect()));
+            }
           }
         }
       }
