@@ -14,15 +14,25 @@ public class Main {
     ImagePlane imagePlane = new ImagePlane(11, 11,
         512, 512,
         new double[] {0, 20, 0},
-        3);
-    LightSource lightSource = new LightSource(new Material(Color.WHITE, 1, 0, 0),
-        new double[] {0, 100, 50}, 2);
+        5);
+    LightSource lightSource = new LightSource(
+        new Material(1, new double[] {0, 0, 0}, new double[] {1, 1, 1}, 0,1, 0),
+        new double[] {0, 70, 50}, 3);
 
     World world = new World(imagePlane, lightSource);
 
-    Sphere sphere = new Sphere(new Material(Color.GREEN, 80,0,20),
-        new double[] {0, 30, 50}, 20);
-    world.addItem(sphere);
+    Sphere sphereOne = new Sphere(new Material(new double[] {0, 1, 0}, 80,2),
+        new double[] {-10, 30, 60}, 20);
+    world.getItems().add(sphereOne);
+
+    Sphere sphereTwo = new Sphere(new Material(new double[] {0, 1, 0}, 80,2),
+        new double[] {20, 20, 45}, 10);
+    world.getItems().add(sphereTwo);
+
+    Sphere sphereThree = new Sphere(new Material(1, new double[] {0, 1, 0}, new double[] {0, 0, 0},
+        2, 60, 2),
+        new double[] {-15, 17, 40}, 7);
+    world.getItems().add(sphereThree);
 
     world.calculateView();
 

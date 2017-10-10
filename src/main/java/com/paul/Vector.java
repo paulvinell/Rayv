@@ -53,6 +53,26 @@ public class Vector {
     return c;
   }
 
+  public static double[] multiply(double[] a, double[] b) {
+    double[] c = new double[a.length];
+
+    for (int i = 0; i < a.length; i++) {
+      c[i] = a[i] * b[i];
+    }
+
+    return c;
+  }
+
+  public static double[] invert(double[] a) {
+    double[] b = new double[a.length];
+
+    for (int i = 0; i < a.length; i++) {
+      b[i] = -a[i];
+    }
+
+    return b;
+  }
+
   public static double[] subtract(double[] a, double[] b) {
     double[] c = new double[a.length];
 

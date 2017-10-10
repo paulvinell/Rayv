@@ -4,11 +4,18 @@ import java.awt.Color;
 
 public class Material {
 
-  private Color color;
+  public double refractionIndex;
+  public double[] surfaceColor, emissionColor;
   private int reflect, transmit, absorb;
 
-  public Material(Color color, int reflect, int transmit, int absorb) {
-    this.color = color;
+  public Material(double[] surfaceColor, int reflect, int absorb) {
+    this(1, surfaceColor, new double[] {0D, 0D, 0D}, reflect, 0, absorb);
+  }
+
+  public Material(double refractionIndex, double[] surfaceColor, double[] emissionColor, int reflect, int transmit, int absorb) {
+    this.refractionIndex = refractionIndex;
+    this.surfaceColor = surfaceColor;
+    this.emissionColor = emissionColor;
     this.reflect = reflect;
     this.transmit = transmit;
     this.absorb = absorb;
@@ -18,8 +25,8 @@ public class Material {
     return reflect + transmit + absorb;
   }
 
-  public Color getColor() {
-    return this.color;
+  public double getRefractionIndex() {
+    return this.refractionIndex;
   }
 
   public double getReflect() {

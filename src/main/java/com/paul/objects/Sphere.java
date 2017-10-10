@@ -15,29 +15,19 @@ public class Sphere extends Item {
   }
 
   public boolean isColliding(Ray ray){
+    return !(getDiscriminant(ray) < 0);
+  }
+
+  public boolean isInside(Ray ray) {
+    return getDiscriminant(ray) > 0;
+  }
+
+  private double getDiscriminant(Ray ray) {
     double A = Vector.dot(ray.getDirection(), ray.getDirection());
-
-        /* We need a vector representing the distance between the start of
-         * the ray and the position of the circle.
-         * This is the term (p0 - c)
-         */
     double[] dist = Vector.subtract(ray.getOrigin(), this.center);
-
-         /* 2d.(p0 - c) */
     double B = 2 * Vector.dot(ray.getDirection(), dist);
-
-         /* (p0 - c).(p0 - c) - r^2 */
     double C = Vector.dot(dist, dist) - (radius * radius);
-
-        /* Solving the discriminant */
-    double discr = (B * B) - (4 * A * C);
-
-        /* If the discriminant is negative, there are no real roots.
-        * Return false in that case as the ray misses the sphere.
-        * Return true in all other cases (can be one or two intersections)
-        */
-
-    return !(discr < 0);
+    return (B * B) - (4 * A * C);
   }
 
   // https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection
@@ -71,15 +61,25 @@ public class Sphere extends Item {
     } else {
       double t1 = tca + thc;
 
-      double[][] result = new double[2][3];
+      double[][] result;
 
-      result[0][0] = ray.getOrigin()[0] + (t0 * ray.getDirection()[0]);
-      result[0][1] = ray.getOrigin()[1] + (t0 * ray.getDirection()[1]);
-      result[0][2] = ray.getOrigin()[2] + (t0 * ray.getDirection()[2]);
+      if (t0 < 0) {
+        result = new double[1][3];
 
-      result[1][0] = ray.getOrigin()[0] + (t1 * ray.getDirection()[0]);
-      result[1][1] = ray.getOrigin()[1] + (t1 * ray.getDirection()[1]);
-      result[1][2] = ray.getOrigin()[2] + (t1 * ray.getDirection()[2]);
+        result[0][0] = ray.getOrigin()[0] + (t1 * ray.getDirection()[0]);
+        result[0][1] = ray.getOrigin()[1] + (t1 * ray.getDirection()[1]);
+        result[0][2] = ray.getOrigin()[2] + (t1 * ray.getDirection()[2]);
+      } else {
+        result = new double[2][3];
+
+        result[0][0] = ray.getOrigin()[0] + (t0 * ray.getDirection()[0]);
+        result[0][1] = ray.getOrigin()[1] + (t0 * ray.getDirection()[1]);
+        result[0][2] = ray.getOrigin()[2] + (t0 * ray.getDirection()[2]);
+
+        result[1][0] = ray.getOrigin()[0] + (t1 * ray.getDirection()[0]);
+        result[1][1] = ray.getOrigin()[1] + (t1 * ray.getDirection()[1]);
+        result[1][2] = ray.getOrigin()[2] + (t1 * ray.getDirection()[2]);
+      }
 
       return result;
     }
