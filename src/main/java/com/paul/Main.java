@@ -16,7 +16,7 @@ public class Main {
         new double[] {0, 20, 0},
         5);
     LightSource lightSource = new LightSource(
-        new Material(1, new double[] {0, 0, 0}, new double[] {1, 1, 1}, 0,1, 0),
+        new Material(1, new double[] {1, 1, 1}, new double[] {1, 1, 1}, 0,1, 0),
         new double[] {0, 70, 50}, 3);
 
     World world = new World(imagePlane, lightSource);
@@ -29,8 +29,8 @@ public class Main {
         new double[] {20, 20, 45}, 10);
     world.getItems().add(sphereTwo);
 
-    Sphere sphereThree = new Sphere(new Material(1, new double[] {0, 1, 0}, new double[] {0, 0, 0},
-        2, 60, 2),
+    Sphere sphereThree = new Sphere(new Material(1, new double[] {0, 0, 1}, new double[] {0, 0, 0},
+        20, 0, 2),
         new double[] {-15, 17, 40}, 7);
     world.getItems().add(sphereThree);
 
