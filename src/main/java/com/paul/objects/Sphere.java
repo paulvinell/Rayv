@@ -30,6 +30,11 @@ public class Sphere extends Item {
     return (B * B) - (4 * A * C);
   }
 
+  @Override
+  public double[] getNormal(double[] collisionPoint) {
+    return Vector.normalize(Vector.subtract(collisionPoint, this.center));
+  }
+
   // https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection
   @Override
   public double[][] getCollisionPoints(Ray ray) {

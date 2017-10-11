@@ -21,5 +21,7 @@ public abstract class Item {
     return center;
   }
 
+  public abstract double[] getNormal(double[] collisionPoint);
+
   public abstract double[][] getCollisionPoints(Ray ray);
 }

@@ -13,16 +13,6 @@ public class ImagePlane {
 
   public Color[][] imagePlane;
 
-  /*
-  First, we replace our eyes with an image plane composed of pixels.
-  In this case, the photons emitted will hit one of the many pixels on the image plane,
-  increasing the brightness at that point to a value greater than zero.
-  This process is repeated multiple times until all the pixels are adjusted,
-  creating a computer generated image.
-  This technique is called forward ray-tracing because we follow
-  the path of the photon forward from the light source to the observer.
-   */
-
   public ImagePlane(double imagePlaneWidth, double imagePlaneHeight,
       int imagePlanePixelWidth, int imagePlanePixelHeight,
       double[] vantagePoint,

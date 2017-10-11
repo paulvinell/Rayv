@@ -21,6 +21,16 @@ public class Material {
     this.absorb = absorb;
   }
 
+  public boolean isLightSource() {
+    for (int i = 0; i < 2; i++) {
+      if (emissionColor[i] > 0) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   private int total() {
     return reflect + transmit + absorb;
   }
