@@ -21,22 +21,11 @@ public class World {
       for (int x = 0; x < imagePlane.getImagePlanePixelWidth(); x++) {
         Ray ray = imagePlane.getRayFromPixel(x, y);
 
-        double[][] color = getColorRay(ray, 7);
-        double[] real = Vector.add(color[0], color[1]);
+        double[] color = getColorRay(ray, 7)[0];
 
-        for (int i = 0; i < 3; i++) {
-          real[i] = Math.min(real[i], 1);
-        }
-
-        imagePlane.imagePlane[x][y] = new Color((int) (255D * color[0][0]),
-            (int) (255D * color[0][1]),
-            (int) (255D * color[0][2]));
-
-//        double[] color = getColorRay(ray, 7)[0];
-//
-//        imagePlane.imagePlane[x][y] = new Color((int) (255D * color[0]),
-//            (int) (255D * color[1]),
-//            (int) (255D * color[2]));
+        imagePlane.imagePlane[x][y] = new Color((int) (255D * color[0]),
+            (int) (255D * color[1]),
+            (int) (255D * color[2]));
       }
     }
   }
@@ -110,31 +99,6 @@ public class World {
       double[][] reflectionColors = getColorRay(reflectionRay, die);
       double[] reflectionColor = Vector.add(reflectionColors[0], reflectionColors[1]);
 
-//      double[] refractionColor = new double[] {0, 0, 0};
-//      if (collideItem.material.getTransmit() > 0) {
-//        double[][] refractionColors = null;
-//
-//        double ior = 1.1;
-//        double eta = (inside) ? ior : 1 / ior;
-//        double cosi = -Vector.dot(norm, mainRay.getDirection());
-//        double k = 1 - eta * eta * (1 - cosi * cosi);
-//
-//        double[] refractionDirection = Vector.add(Vector.scale(mainRay.getDirection(), eta),
-//            Vector.scale(norm, (eta *  cosi - Math.sqrt(k))));
-//        refractionDirection = Vector.normalize(refractionDirection);
-//
-//        Ray refractionRay = new Ray(Vector.subtract(collisionPoint, Vector.scale(refractionDirection, bias)), refractionDirection);
-//
-//        refractionColors = getColorRay(refractionRay, die);
-//        refractionColor = Vector.add(refractionColors[0], refractionColors[1]);
-//      }
-//
-//      rgb = Vector.add(rgb,
-//          Vector.add(
-//              Vector.scale(reflectionColor, fresnel * collideItem.material.getReflect()),
-//              Vector.scale(refractionColor, (1 - fresnel) * collideItem.material.getTransmit())
-//          ));
-
       rgb = Vector.add(rgb, Vector.scale(reflectionColor, fresnel));
     }
 
@@ -150,17 +114,6 @@ public class World {
 
     result[1] = Vector.subtract(rgb, result[0]);
     result[0] = Vector.add(result[0], collideItem.material.emissionColor);
-
-//    double[][] result = new double[2][3];
-//
-//    for (int i = 0; i < 3; i++) {
-//      result[0][i] = rgb[i] - ((1 - collideItem.material.surfaceColor[i]) * collideItem.material.getReflect());
-//      result[0][i] = Math.max(result[0][i], 0);
-//      result[0][i] = Math.min(result[0][i], 1);
-//    }
-//
-//    result[1] = Vector.subtract(rgb, result[0]);
-//    result[1] = Vector.add(result[1], collideItem.material.emissionColor);
 
     return result;
   }

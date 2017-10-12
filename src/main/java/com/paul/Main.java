@@ -23,7 +23,7 @@ public class Main {
         new double[] {0, 70, 50}, 3);
     world.getItems().add(lightSource);
 
-    Sphere sphereOne = new Sphere(new Material(new double[] {0.5, 1, 0}, 80,2),
+    Sphere sphereOne = new Sphere(new Material(new double[] {0.7, 1, 0}, 80,2),
         new double[] {-10, 30, 60}, 20);
     world.getItems().add(sphereOne);
 
